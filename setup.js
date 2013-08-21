@@ -39,27 +39,66 @@ function Song(){
 };
 
 Song.prototype.addLyriChord = function(lyrichord){
-  var found = false;
   var lyric = lyrichord.lyric || '';
-  var chord = lyrichord.chord || '';
-  for(var c=0;c<=this.chords.length;c++){ //check if chord object exists with chord name, if it does, return it, otherwise insert it
-    if       (chord === ''){ this.content.push(new LyriChord(lyric,-1)); c++;}
-    else if  ( c===this.chords.length && found===false ) { //end of array and no chord found, insert new chord and lyric with index of that chord
-      chord = chord.charAt(0).toUpperCase() + chord.slice(1);
-      this.chords.push(new Chord(chord));
-      this.content.push(new LyriChord(lyric,c));
-      c++;
-      console.log(this);
-    }
-    else if  ( c!=this.chords.length && this.chords[c].name.toLowerCase()===chord.toLowerCase()){ //found existing chord object
-      this.content.push(new LyriChord(lyric,c));
-      found = true;
-      console.log(this);
-    };
-    
-  };
+  if (!lyrichord.chord){ this.content.push(new LyriChord(lyric,-1)); return this.content.length-1; }
+  else {
+    var chordIndex = this.addChord(lyrichord.chord);
+    this.content.push(new LyriChord(lyric,chordIndex))
+    return this.content.length-1;
+  }
 };
 
+
+Song.prototype.updateLyriChord = function(objectupdate){
+  var index = objectupdate.index;
+  //update only if specified
+  if(objectupdate.lyric){ this.content[index].lyric = objectupdate.lyric };
+  if(objectupdate.chord){ this.content[index].chordIndex = this.addChord(objectupdate.chord); }
+  // console.log('updated', this);
+}
+
+
+Song.prototype.addChord = function(chord){
+  var found = false;
+  for(var c=0;c<=this.chords.length;c++){
+    if (c===this.chords.length && found===false){
+      chord = chord.charAt(0).toUpperCase() + chord.slice(1);
+      this.chords.push(new Chord(chord));
+      console.log('new chord at ' + c, this.chords)
+      return c;
+    }
+    else if (this.chords[c].name.toLowerCase() === chord.toLowerCase()){
+      found = true;
+      console.log('found chord at ' +c);
+      return c;
+    }
+  }
+}
+
+Song.prototype.addSection = function(sectionobject){
+  this.sections.push(new Section(sectionobject));
+  console.log(this);
+};
+
+Song.prototype.lookupSection = function(sectionname){
+  var found = false;
+  for(var s=0;s<this.sections.length;s++){
+    if (this.sections[s].name === sectionname){ return this.sections[s]; found = true; }
+  }
+  if(!found){ return false };
+};
+
+Song.prototype.sectionObjects = function(sectionname){
+  var section = this.lookupSection(sectionname);
+  if(section){ 
+    var arrayObjects = [];
+    for(var i=section.begin;i<=section.end;i++){
+      arrayObjects.push(this.content[i]);
+    }
+    return arrayObjects;
+  }
+  else{ return false };
+}
 
 
 function Chord(name){
@@ -71,22 +110,35 @@ function LyriChord(lyric,chordIndex){
   this.chordIndex = chordIndex;
 };
 
-function Section(name,begin,end){
-  this.name = name || '';
-  this.begin = begin;
-  this.end = end;
+function Section(sectionobject){
+  this.name = sectionobject.name || '';
+  this.begin = sectionobject.begin;
+  this.end = sectionobject.end;
 };
 
 
 /*   testing   */
 
 var mySong = new Song();
+
 mySong.addLyriChord({lyric:'Hello',chord:'Amaj7'});
 mySong.addLyriChord({lyric:'World',chord:'amaJ7'});
+
 mySong.addLyriChord({lyric:'whadddup'});
 mySong.addLyriChord({lyric:'whadddup doe'});
 mySong.addLyriChord({chord:'Cmin7'});
 mySong.addLyriChord({lyric:'test',chord:'cmin7'});
 
-console.log(mySong.content[0]);
+mySong.addChord('amaj7');
+mySong.addChord('Amaj7');
+mySong.addChord('Cmin7');
+mySong.addChord('F');
+
+mySong.addLyriChord({lyric:'testing',chord:'F'});
+mySong.updateLyriChord({index:0,chord:'Em'});
+mySong.addSection({name: 'Verse1', begin:0, end:3});
+console.log(mySong.lookupSection('Verse1'));
+console.log(mySong.sectionObjects('Verse1'));
+
+// console.log(mySong.content[0]);
 
