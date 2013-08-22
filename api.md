@@ -15,6 +15,12 @@ var mySong = new Song();
 
 - mySong.sectionObjects('Verse 1') /*get the objects defined by the session's beginning and ending props, searching for it by name
 
+- mySong.transposeChords(2 OR -2) /* transpose the current chords by that number and return them. Also stores them in a tempchords object which holds the number transposed by and the chord objects (chord.name for the name)
+
+- mySong.transpose('A',2 OR -2) /* helper function used by transposeChords to transpose a given chord name. implemented hardcoded with switch cases but should be implemented with a circular, doubly linked list of notess */
+
+
+
 mySong.generateFromMarkdown('*Verse 1* Hello[E] World[F]');      /* take in Markdown, and populate the song object */
 
 mySong.generateToMarkdown()     /* return Markdown text */
