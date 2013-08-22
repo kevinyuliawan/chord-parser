@@ -14,12 +14,12 @@
   .section{ /* border-top:1px solid red; border-bottom:1px solid red; */ padding:5px 0px; margin:5px 0px;}
   </style>
   <script>
-    var newSong = new Song();
+  var newSong = new Song();
   </script>
 </head>
 
 <body>
-  <div class="container" style="margin-top:20px">
+  <div class="container" style="margin-top:20px; margin-bottom:20px;">
     <div class="page-header">
       <h2>Custom Markdown Test </h2>
     </div>
@@ -28,7 +28,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="row">
-              <textarea rows="20" class="form-control inputmd"></textarea>
+              <textarea spellcheck="false" rows="20" class="form-control inputmd"></textarea>
             </div>
             <div class="row">
               <button type="button" class="btn btn-success convert">Go!</button>
@@ -55,16 +55,18 @@
                   <div class="word">&nbsp;</div>
                 </div>
               -->
-              </div>
-
-
-
-
             </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-primary save">Save</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </body>
 </html>

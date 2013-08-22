@@ -38,16 +38,32 @@ String.prototype.contains = function(val){
 };
 
 $(document).ready(function(){
+var newSong;
+
+$('.save').hide();
 
 $('.convert').click(function(){
-    var newSong = new Song();
-    newSong.generateFromMarkdown($('.inputmd').val());
+    newSong = new Song();
+    // console.log($('.inputmd').val());
+    newSong.generateFromMarkdown($('.inputmd').val().toString());
     newSong.generateToMarkdown();
     $('.results-div').html(newSong.generateHTML());
     console.log(newSong);
     console.log(newSong.content[8], newSong.chords[newSong.content[8].chordIndex].name);
     console.log($('*[data-index="8"').html());
-})
+    console.log(newSong.sectionChordsUnique('Verse 1'));
+    console.log(newSong.sectionChordsInOrder('Verse 1'));
+
+    $('.save').show();
+  });
+
+  $('.save').click(function(){
+    newSong.updateLyriChord({index:8, lyric:'test',chord:'F#7'});
+    console.log(newSong);
+    $('.inputmd').val(newSong.generateToMarkdown());
+    $('.results-div').html(newSong.generateHTML());
+  });
+
 
 });
 

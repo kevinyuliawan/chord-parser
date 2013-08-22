@@ -9,9 +9,13 @@ var mySong = new Song();
 
 - mySong.addChord('Fmaj7'); /* return the index of the chord, either if it already exists or needed to be added */
 
-- mySong.addSection({name:'Verse 1',begin:0,end:10}) /* add a new section with the name and beginning and ending objects indeces */
+- mySong.addSection({name:'Verse 1',begin:0,end:10}) /* add a new section with the name and beginning and ending objects indeces. dynamically generates the chords used based on the lyrichords specified, and saves them in section.chordsUnique and section.chordsInOrder */
 
-- mySong.lookupSection('Verse 1') /*lookup a section by name */
+- mySong.lookupSection('Verse 1') /* helper function to lookup a section by name */
+
+- mySong.sectionChordsInOrder('Verse 1') /* get the chords from the specified section in order */
+
+- mySong.sectionChordsUnique('Verse 1') /* get the unique chords from the specified section */
 
 - mySong.sectionObjects('Verse 1') /*get the objects defined by the session's beginning and ending props, searching for it by name
 

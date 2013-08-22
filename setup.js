@@ -58,8 +58,10 @@ function LyriChord(object){
 
 function Section(sectionobject){
   if(sectionobject.name){ this.name = sectionobject.name }
-    this.begin = sectionobject.begin;
+  this.begin = sectionobject.begin;
   this.end = sectionobject.end;
+  this.chordsUnique = sectionobject.chordsUnique;
+  this.chordsInOrder = sectionobject.chordsInOrder;
 };
 
 
@@ -114,7 +116,20 @@ Song.prototype.addChord = function(chord){
 }
 
 Song.prototype.addSection = function(sectionobject){
-  this.sections.push(new Section(sectionobject));
+  var object = sectionobject;
+  var chordsUniqueArray = [];
+  var chordsInOrder = [];
+  for(var c=sectionobject.begin;c<=sectionobject.end;c++){
+    var hasChord = false;
+    if(this.content[c].chordIndex===0){ hasChord = true }
+    if(this.content[c].chordIndex || hasChord){
+      if(chordsUniqueArray.indexOf(this.content[c].chordIndex) === -1){ chordsUniqueArray.push(this.content[c].chordIndex) };
+      chordsInOrder.push(this.content[c].chordIndex);
+    }
+  }
+  object.chordsUnique = chordsUniqueArray; //dynamically create the chordArray from the given sections constructor w/ beginning and end
+  object.chordsInOrder = chordsInOrder;
+  this.sections.push(new Section(object));
   // console.log(this);
 };
 
@@ -134,6 +149,30 @@ Song.prototype.sectionObjects = function(sectionname){
       arrayObjects.push(this.content[i]);
     }
     return arrayObjects;
+  }
+  else{ return false };
+}
+
+Song.prototype.sectionChordsInOrder = function(sectionname){
+  var section = this.lookupSection(sectionname);
+  if(section){
+    var arrayChords = [];
+    for(var c=0;c<section.chordsInOrder.length;c++){
+      arrayChords.push(this.chords[section.chordsInOrder[c]].name);
+    }
+    return arrayChords;
+  }
+  else{ return false };
+}
+
+Song.prototype.sectionChordsUnique = function(sectionname){
+  var section = this.lookupSection(sectionname);
+  if(section){
+    var arrayChords = [];
+    for(var c=0;c<section.chordsUnique.length;c++){
+      arrayChords.push(this.chords[section.chordsUnique[c]].name);
+    }
+    return arrayChords;
   }
   else{ return false };
 }
@@ -228,7 +267,7 @@ Song.prototype.generateFromMarkdown = function(markdown){
       var lines = subsections[b].split(/\r\n|\r|\n/g); //should also split by two \n , signifying a new subsection similar to <p>
       lines = lines.filter(function(n){return n;}); 
       for(var i=0;i<lines.length;i++){
-        var line = lines[i].split(' ');
+        var line = lines[i].split(' ').filter(function(n){return n;});
         for(var k=0;k<line.length;k++){
           var lyric = null;
           var chord = null;
