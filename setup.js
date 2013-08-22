@@ -42,16 +42,46 @@ function Song(){
 
 /*
 /* 
+  Helper classes
+*
+*/
+
+function Chord(name){
+  this.name = name;
+};
+
+function LyriChord(object){
+  for(var prop in object){
+    this[prop] = object[prop];
+  };
+};
+
+function Section(sectionobject){
+  if(sectionobject.name){ this.name = sectionobject.name }
+    this.begin = sectionobject.begin;
+  this.end = sectionobject.end;
+};
+
+
+/*
+/* 
   Internal functions 
 *
 */
 
 Song.prototype.addLyriChord = function(lyrichord){
   var lyric = lyrichord.lyric || '';
-  if (!lyrichord.chord){ this.content.push(new LyriChord(lyric,-1)); return this.content.length-1; }
+  var lastInLine = lyrichord.lastInLine || false;
+  var object = {};
+  for(var prop in lyrichord){
+    if(prop!='chord') { object[prop] = lyrichord[prop] };
+  };
+
+  if (!lyrichord.chord){ this.content.push(new LyriChord(object)); return this.content.length-1; }
   else {
     var chordIndex = this.addChord(lyrichord.chord);
-    this.content.push(new LyriChord(lyric,chordIndex))
+    object.chordIndex = chordIndex;
+    this.content.push(new LyriChord(object));
     return this.content.length-1;
   }
 };
@@ -144,14 +174,14 @@ Song.prototype.transpose = function(chordname,halfsteps){ // should replace this
         case 'F':
         case 'G':
         case 'A':
-          chord = chord[0]+'#'+chord.slice(1);
-          break;
+        chord = chord[0]+'#'+chord.slice(1);
+        break;
         case 'E':
-          chord = 'F'+chord.slice(1);
-          break;
+        chord = 'F'+chord.slice(1);
+        break;
         case 'B':
-          chord = 'C'+chord.slice(1);
-          break;
+        chord = 'C'+chord.slice(1);
+        break;
       }
     }
     steps--;
@@ -167,29 +197,98 @@ Song.prototype.transpose = function(chordname,halfsteps){ // should replace this
 *
 */
 
+String.prototype.contains = function(val){ //helper function
+  if(this.indexOf(val) >= 0){return true;  }
+  else{return false;};
+};
+
+Song.prototype.generateFromMarkdown = function(markdown){
+  this.markdown = markdown;
+  var sections = markdown.split(/(\*[a-z|A-Z|\s|\d|-]+\*)/); //split by asterisk headers, and store them in the array
+  sections = sections.filter(function(n){return n;}); //filter out empty, how this works i do not know
+  console.log('THE SECTIONS',sections);
+  var sectionName='';
+  for(var s=0;s<sections.length;s++){
+    if(sections[s].contains('*')){ sectionName = sections[s].replace("*","").replace("*","") }
+      else{
+        this.generateSectionFromMarkdown(sections[s],sectionName);
+      };
+
+    };
+    return this;
+  };
 
 
+  Song.prototype.generateSectionFromMarkdown = function(section,sectionName){
+    var sectionobject = {};
+    sectionobject.name = sectionName;
+    sectionobject.begin = this.content.length;
+    var subsections = section.split(/\n\n|\r\r|\r\n\r\n/g);
+    for(var b=0;b<subsections.length;b++){
+      var lines = subsections[b].split(/\r\n|\r|\n/g); //should also split by two \n , signifying a new subsection similar to <p>
+      lines = lines.filter(function(n){return n;}); 
+      for(var i=0;i<lines.length;i++){
+        var line = lines[i].split(' ');
+        for(var k=0;k<line.length;k++){
+          var lyric = null;
+          var chord = null;
+          var object = {};
+          var splits = line[k].split('[').filter(function(n){return n;}); //split if chord exists, and if it does, it will have a '[' and need the ']' to filter out later, and filter out empty
+          if(splits[0].contains(']')){ chord = splits[0].replace(']','')} // chord is only element
+            else {lyric = splits[0]; if(splits[1]){ chord = splits[1].replace(']','')} };
+          if(lyric){ object.lyric = lyric };
+          if(chord){ object.chord = chord };
+          if(k===line.length-1){ object.lastInLine = true };
+          if(k===0 && i===0){ object.firstInSection = true };
+          if(i===lines.length-1 && k===line.length-1){ object.lastInSection = true };
+          this.addLyriChord(object);
+        }
+      }
+    }
+sectionobject.end = this.content.length-1;
+this.addSection(sectionobject);
+}
+
+Song.prototype.generateToMarkdown = function(){
+  var returnString = '';
+  var curCount = 1;
+  var objCount = this.content.length;
+  for(var s=0;s<this.sections.length;s++){
+    if(this.sections[s].name){ returnString+= '*'+this.sections[s].name+'*'};
+    for(var k=this.sections[s].begin;k<=this.sections[s].end;k++){
+      var lyric = this.content[k].lyric;
+      var chordIndex = this.content[k].chordIndex;
+      var chord = null;
+      if (chordIndex >= 0) { chord = this.chords[chordIndex].name };
+      if(lyric){ returnString+=lyric };
+      if(chord){ returnString+='['+chord+']' };
+      if(this.content[k].lastInLine && curCount!=objCount){ if(this.content[k].lastInSection){returnString+='\n'}; returnString+='\n' }
+        else if(curCount!=objCount){ returnString+=' ' };
+      curCount++;
+    }
+  }
+  this.markdownGenerated = returnString; //currently set to markdownGenerated in order to compare
+  return returnString;
+}
 
 /*
-/* 
-  Helper classes
-*
+Song.prototype.generateHTML = function(){
+  var returnHTML = '';
+  for(var s=0;s<this.sections.length;s++){
+    if(this.sections[s].name){ returnHTML+= '<div class="section"><p class="lead">'+this.sections[s].name+'</p>'};
+    for(var k=this.sections[s].begin;k<=this.sections[s].end;k++){
+
+    }
+  }
+}
 */
 
-function Chord(name){
-  this.name = name;
-};
+Song.prototype.testSplit = function(text){
+  var arr = text.split(/(\*[a-z|A-Z|\s|\d|-]+\*)/);
+  console.log(arr);
+}
 
-function LyriChord(lyric,chordIndex){
-  this.lyric = lyric;
-  this.chordIndex = chordIndex;
-};
 
-function Section(sectionobject){
-  this.name = sectionobject.name || '';
-  this.begin = sectionobject.begin;
-  this.end = sectionobject.end;
-};
 
 
 
@@ -205,14 +304,20 @@ function Section(sectionobject){
 
 var mySong = new Song();
 
+var text  = "*verse 1*\nfdsa fdsafdsa fdsa[c]\nfdsafdsafds[emaj7] [f] [em7] fdsafdsafdsa[b]\n\n*verse 2*\nqwerqwer qwer\nqwerqwerqwerqwer";
 
+// mySong.testSplit(text);
+
+// console.log(mySong.generateFromMarkdown(text));
+
+/*
 mySong.addLyriChord({lyric:'Hello',chord:'Amaj7'});
 mySong.addLyriChord({lyric:'World',chord:'amaJ7'});
 
 mySong.addLyriChord({lyric:'whadddup'});
 mySong.addLyriChord({lyric:'whadddup doe'});
 mySong.addLyriChord({chord:'Cmin7'});
-mySong.addLyriChord({lyric:'test',chord:'cmin7'});
+mySong.addLyriChord({lyric:'test',chord:'cmin7', lastInLine:true});
 
 mySong.addChord('amaj7');
 mySong.addChord('Amaj7');
@@ -228,6 +333,10 @@ mySong.addSection({name: 'Verse1', begin:0, end:3});
 // console.log(mySong.transpose('A#min7',3));
 console.log(mySong.transposeChords(-2));
 console.log(mySong.tempchords);
+console.log(mySong);
 
 // console.log(mySong.content[0]);
+*/
+
+
 

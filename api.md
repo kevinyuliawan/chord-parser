@@ -3,7 +3,7 @@ API
 
 var mySong = new Song();
 
-- mySong.addLyriChord({lyric:'Hello', chord:'E'});
+- mySong.addLyriChord({lyric:'Hello', chord:'E'}); /* new LyriChord takes an object and sets all of the LyriChord properties to that object. used for if you need prototypes down the road */
 
 - mySong.updateLyriChord({ index:0, lyric:'Hola', chord:'F' });  /* can also exclude certain info, except for index */
 
@@ -21,9 +21,11 @@ var mySong = new Song();
 
 
 
-mySong.generateFromMarkdown('*Verse 1* Hello[E] World[F]');      /* take in Markdown, and populate the song object */
+- mySong.generateFromMarkdown('*Verse 1* Hello[E] World[F]');      /* take in Markdown, and populate the song object */
 
-mySong.generateToMarkdown()     /* return Markdown text */
+- mySong.generateSectionFromMarkdown(section,sectionName) /* helper function used by generateFromMarkdown to generate the sections and populate the song with the LyriChords */
+
+- mySong.generateToMarkdown()     /* return Markdown text. currently set to this.generatedMarkdown instead of this.markdown in order to test */
 
 mySong.generateToHTML()     /* return HTML representation of object */
 
