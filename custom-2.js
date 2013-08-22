@@ -43,7 +43,10 @@ $('.convert').click(function(){
     var newSong = new Song();
     newSong.generateFromMarkdown($('.inputmd').val());
     newSong.generateToMarkdown();
+    $('.results-div').html(newSong.generateHTML());
     console.log(newSong);
+    console.log(newSong.content[8], newSong.chords[newSong.content[8].chordIndex].name);
+    console.log($('*[data-index="8"').html());
 })
 
 });

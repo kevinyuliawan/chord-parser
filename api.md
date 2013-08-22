@@ -27,6 +27,6 @@ var mySong = new Song();
 
 - mySong.generateToMarkdown()     /* return Markdown text. currently set to this.generatedMarkdown instead of this.markdown in order to test */
 
-mySong.generateToHTML()     /* return HTML representation of object */
+- mySong.generateToHTML()     /* return HTML representation of object */
 
 mySong.generateMonospace()      /* return monospaced text, for plain-text editors */

@@ -206,7 +206,7 @@ Song.prototype.generateFromMarkdown = function(markdown){
   this.markdown = markdown;
   var sections = markdown.split(/(\*[a-z|A-Z|\s|\d|-]+\*)/); //split by asterisk headers, and store them in the array
   sections = sections.filter(function(n){return n;}); //filter out empty, how this works i do not know
-  console.log('THE SECTIONS',sections);
+  // console.log('THE SECTIONS',sections);
   var sectionName='';
   for(var s=0;s<sections.length;s++){
     if(sections[s].contains('*')){ sectionName = sections[s].replace("*","").replace("*","") }
@@ -254,7 +254,7 @@ Song.prototype.generateToMarkdown = function(){
   var curCount = 1;
   var objCount = this.content.length;
   for(var s=0;s<this.sections.length;s++){
-    if(this.sections[s].name){ returnString+= '*'+this.sections[s].name+'*'};
+    if(this.sections[s].name){ returnString+= '*'+this.sections[s].name+'*'+'\n'};
     for(var k=this.sections[s].begin;k<=this.sections[s].end;k++){
       var lyric = this.content[k].lyric;
       var chordIndex = this.content[k].chordIndex;
@@ -271,17 +271,32 @@ Song.prototype.generateToMarkdown = function(){
   return returnString;
 }
 
-/*
+
 Song.prototype.generateHTML = function(){
   var returnHTML = '';
+  var curCount = 0;
   for(var s=0;s<this.sections.length;s++){
     if(this.sections[s].name){ returnHTML+= '<div class="section"><p class="lead">'+this.sections[s].name+'</p>'};
     for(var k=this.sections[s].begin;k<=this.sections[s].end;k++){
+      var lyric = this.content[k].lyric || '&nbsp';
+      var chordExists = false; //needed since 0 returns a null
+      if(this.content[k].chordIndex === 0){ chordExists = true };
+      var chord = '';
+      if(this.content[k].chordIndex || chordExists){ chord = this.chords[this.content[k].chordIndex].name };
 
+      if(this.content[k].firstInSection){ returnHTML+='<div class="subsection">' };
+      // if(k==this.sections[s].begin){ console.log('first', this.content[k], chord)}
+      returnHTML+='<div class="object" data-index="'+curCount+'"><div class="chord">'+chord+'</div><div class="lyric">'+lyric+'</div></div>';
+      if(this.content[k].lastInLine && this.content[k].lastInSection){ returnHTML+='</div>' }
+        else if(this.content[k].lastInLine){ returnHTML+='<br/>' };
+      curCount++;
     }
+    returnHTML +='</div>';
   }
+  this.generatedHTML = returnHTML;
+  return returnHTML;
 }
-*/
+
 
 Song.prototype.testSplit = function(text){
   var arr = text.split(/(\*[a-z|A-Z|\s|\d|-]+\*)/);
