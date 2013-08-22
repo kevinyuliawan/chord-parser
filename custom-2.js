@@ -61,7 +61,7 @@ $('.convert').click(function(){
     newSong.updateLyriChord({index:8, lyric:'test',chord:'F#7'});
     console.log(newSong);
     $('.inputmd').val(newSong.generateToMarkdown());
-    $('.results-div').html(newSong.generateHTML());
+    $('.results-div').html(newSong.generateToHTML());
   });
 
 

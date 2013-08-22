@@ -311,7 +311,7 @@ Song.prototype.generateToMarkdown = function(){
 }
 
 
-Song.prototype.generateHTML = function(){
+Song.prototype.generateToHTML = function(){
   var returnHTML = '';
   var curCount = 0;
   for(var s=0;s<this.sections.length;s++){
@@ -320,7 +320,7 @@ Song.prototype.generateHTML = function(){
       var lyric = this.content[k].lyric || '&nbsp';
       var chordExists = false; //needed since 0 returns a null
       if(this.content[k].chordIndex === 0){ chordExists = true };
-      var chord = '';
+      var chord = '&nbsp';
       if(this.content[k].chordIndex || chordExists){ chord = this.chords[this.content[k].chordIndex].name };
 
       if(this.content[k].firstInSection){ returnHTML+='<div class="subsection">' };
