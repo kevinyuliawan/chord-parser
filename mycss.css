@@ -45,3 +45,7 @@
   font-weight: bold;
   margin:0;
 }
+
+.selected{
+  border:1px solid red;
+}

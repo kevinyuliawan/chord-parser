@@ -1,0 +1,544 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"loc",
+				"localMediaStream"
+			],
+			[
+				"Phon",
+				"PhoneListCtrler"
+			],
+			[
+				"toLowercase",
+				"toLowercase"
+			],
+			[
+				"path",
+				"pathToFile"
+			],
+			[
+				"arti",
+				"articleId"
+			],
+			[
+				"create",
+				"createFromHexString"
+			],
+			[
+				"mongodb",
+				"mongodb"
+			],
+			[
+				"article",
+				"article"
+			],
+			[
+				"prot",
+				"prototype"
+			],
+			[
+				"dummy",
+				"dummyData"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "      C\nHey Jude\n               C7\nDon't make it bad\n G      F\nTake a sad song\nAnd make it better",
+			"settings":
+			{
+				"buffer_size": 97,
+				"line_ending": "Unix",
+				"name": "C"
+			}
+		},
+		{
+			"contents": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Test layout</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <!-- Bootstrap -->\n  <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\" media=\"screen\">\n  <link href=\"mycss.css\" rel=\"stylesheet\" media=\"screen\">\n\n  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->\n    <!--[if lt IE 9]>\n      <script src=\"../../assets/js/html5shiv.js\"></script>\n      <script src=\"../../assets/js/respond.min.js\"></script>\n      <![endif]-->\n\n  <script>\n    \n  </script>\n  </head> \n    <body style=\"min-height:2000px;padding-top:90px;\">\n      <div class=\"navbar navbar-inverse navbar-fixed-top\">\n        <div class=\"container\">\n          <div class=\"navbar-header\">\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\" href=\"#\">Lyrichord 3.0</a>\n          </div>\n          <div class=\"navbar-collapse collapse\">\n            <ul class=\"nav navbar-nav\">\n              <li class=\"active\"><a href=\"#\">Home</a></li>\n              <li><a href=\"#about\">About</a></li>\n              <li><a href=\"#contact\">Contact</a></li>\n              <li class=\"dropdown\">\n                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Dropdown <b class=\"caret\"></b></a>\n                <ul class=\"dropdown-menu\">\n                  <li><a href=\"#\">Action</a></li>\n                  <li><a href=\"#\">Another action</a></li>\n                  <li><a href=\"#\">Something else here</a></li>\n                  <li class=\"divider\"></li>\n                  <li class=\"dropdown-header\">Nav header</li>\n                  <li><a href=\"#\">Separated link</a></li>\n                  <li><a href=\"#\">One more separated link</a></li>\n                </ul>\n              </li>\n            </ul>\n            <ul class=\"nav navbar-nav navbar-right\">\n              <li><a href=\"../navbar/\">Default</a></li>\n              <li><a href=\"../navbar-static-top/\">Static top</a></li>\n              <li class=\"active\"><a href=\"./\">Fixed top</a></li>\n            </ul>\n          </div><!--/.nav-collapse -->\n        </div>\n      </div>\n\n      <div class=\"container-custom\">\n        <div class=\"row\">\n          <div class=\"col-md-4 col-enter\">\n            <div class=\"col-md-4 well well-lg\" data-spy=\"affix\">\n              <div class=\"row\" >\n                <textarea spellcheck=\"false\" class=\"form-control\" id=\"textarea-input\" rows=\"25\">Edit in chord markdown here.</textarea>\n              </div>\n              <div class=\"row button-holder\">\n                <div class=\"col-md-12\">\n                  <button type=\"button\" class=\"btn btn-success btn-block\" id=\"btn-submit\">Go!</button>\n                  <button type=\"button\" class=\"btn btn-info btn-block\" id=\"btn-clear\">Clear</button>\n                  <button type=\"button\" class=\"btn btn-primary btn-block\" id=\"btn-test\">Test</button>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-7 well well-lg col-result\">\n            <div class=\"row\">\n              <div class=\"col-md-12\">\n                <div class=\"result-div\">\n                  <h1>New here?</h1>\n                  <p>Enter some chord markdown on the left to get started.</p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n\n\n\n\n      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\n      <!-- <script src=\"sanitizer.js\"></script> -->\n      <script src=\"setup.js\"></script>\n      <script src=\"jquery/jquery.js\"></script>\n      <!-- Include all compiled plugins (below), or include individual files as needed -->\n      <script src=\"js/bootstrap.min.js\"></script>\n      <script src=\"mycustomscript.js\"></script>\n    </body>\n    </html>",
+			"file": "index-style.html",
+			"file_size": 3952,
+			"file_write_time": 1377287099000000,
+			"settings":
+			{
+				"buffer_size": 3980,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mycss.css",
+			"settings":
+			{
+				"buffer_size": 498,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "$(document).ready(function() vbc\n  var newSong = new Song();\n  var $ta = $('#textarea-input');\n  var $submit = $('#btn-submit');\n  var $clear = $('#btn-clear');\n  var $result = $('.result-div');\n  var $test = $('#btn-test');\n  var $chord = $('.chord');\n  var $object = $('.object');\n\n\n  function sanitize(markdown){\n    // TODO: sanitize input\n    return markdown;\n  }\n\n  function regenerate(){\n    var markdown = sanitiz e($ta.val());\n    newSong = new Song();/\n    newSong.generateFromMarkdown(markdown);\n    newSong.generateToMarkdown();\n    $result.html(newSong.generateToHTML());\n  }\n\n  $ta.focus(function(){\n    if($ta.val()=='Edit in chord markdown here.'){ $ta.val(''); }\n  });\n\n  $submit.click(function(){\n    regenerate();\n  });\n\n  $ta.keyup(function(){\n    regenerate();\n  });\n\n  $clear.click(function(){\n    $ta.val('');\n    regenerate();\n    $ta.focus();\n  });\n\n  $test.click(function(){\n    console.log('test2');\n    newSong.updateLyriChord({index:8, lyric:'test',chord:'F#7'});\n    $ta.val(newSong.generateToMarkdown());\n    $result.html(newSong.generateToHTML());\n  });\n\n\n  $result.on('click','.lyric',function(){\n    hideOthers(this);\n\n    $(this).popover({\n      animation: true,\n      html:'true',\n      placement:'top',\n      trigger: 'manual',\n      content:'<p>Hello</p>',\n    });\n\n    // $(this).popover('toggle');\n    console.log('lyric');\n\n    $(this).popover('toggle');\n\n  });\n\n  function hideOthers(elem){\n    $('.lyric').not(elem).popover('hide');\n  };\n\n\n\n  $chord.click(function(){\n    console.log('chord click');\n  });\n\n  \n\n\n});",
+			"file": "mycustomscript.js",
+			"file_size": 1558,
+			"file_write_time": 1377289120000000,
+			"settings":
+			{
+				"buffer_size": 1558,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "verse1test.txt",
+			"settings":
+			{
+				"buffer_size": 355,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 47.0,
+		"selected_items":
+		[
+			[
+				"install p",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"install pack",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"install pac",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 146.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/KevinY/Development/Test/markdown-custom/custom-2.js",
+		"/Users/KevinY/Development/Test/markdown-custom/custom.js",
+		"/Users/KevinY/Development/Test/markdown-custom/css/bootstrap.css",
+		"/Users/KevinY/Development/Test/markdown-custom/index-2.html",
+		"/Users/KevinY/Desktop/page.html",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/home.jade",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/layout.jade",
+		"/Users/KevinY/Development/TECDP/jqm-test5/public/htmls/final.html",
+		"/Users/KevinY/Development/TECDP/jqm-test5/public/bootstrap/css/bootstrap.css",
+		"/Users/KevinY/Development/TECDP/jqm-test5/public/htmls/confirm.html",
+		"/Users/KevinY/Development/TECDP/jqm-test5/public/htmls/picture.html",
+		"/Users/KevinY/Development/TECDP/jqm-test5/public/bootstrap/css/bootstrap.min.css",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/scan.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/camera.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/app.js",
+		"/Users/KevinY/Development/Test/markdown-custom/api.md",
+		"/Users/KevinY/Development/Test/markdown-custom/setup.js",
+		"/Users/KevinY/Development/Test/markdown-custom/index.html",
+		"/Users/KevinY/Development/Test/markdown-custom/.git/MERGE_MSG",
+		"/Users/KevinY/Development/Test/markdown-custom/verse1test.txt",
+		"/Users/KevinY/index.html",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/login.jade",
+		"/Users/KevinY/Development/Test/musically-linked-list/musiclist.js",
+		"/Users/KevinY/Development/Test/angular-phonecat/config/karma-e2e.conf.js",
+		"/Users/KevinY/Development/Test/angular-phonecat/test/e2e/scenarios.js",
+		"/Users/KevinY/Development/Test/angular-phonecat/config/karma.conf.js",
+		"/Users/KevinY/Development/Test/angular-phonecat/test/unit/controllersSpec.js",
+		"/Users/KevinY/Development/Test/angular-phonecat/app/js/controllers.js",
+		"/Users/KevinY/Development/Test/angular-phonecat/app/index.html",
+		"/Users/KevinY/Development/Test/angular-phonecat/test/e2e/runner.html",
+		"/Users/KevinY/Development/Test/angular-phonecat/scripts/test.sh",
+		"/Users/KevinY/Development/Test/angular-phonecat/app/phones/dell-streak-7.json",
+		"/Users/KevinY/Development/Test/angular-phonecat/scripts/web-server.js",
+		"/Users/KevinY/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/KevinY/Library/Application Support/Sublime Text 2/Packages/User/View In Browser.sublime-settings",
+		"/Users/KevinY/Desktop/test.html",
+		"/Users/KevinY/Library/Application Support/Sublime Text 2/Packages/View In Browser/View In Browser.sublime-settings",
+		"/Users/KevinY/Development/TECDP/jqm-test5/models/db.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/profile.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/public/custom.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/results.jade",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/results.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/scan.jade",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/profileshow.jade",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/profilecreate",
+		"/Users/KevinY/Development/TECDP/jqm-test5/outputpre.txt",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/index.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/package.json",
+		"/Users/KevinY/Development/TECDP/jqm-test5/models/user.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/login.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/register.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/upload.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/register.jade",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/profilecreate.jade",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/home-two.jade",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/database.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/profileget.jade",
+		"/Users/KevinY/Development/TECDP/jqm-test5/views/logout.jade",
+		"/private/etc/mongodb.conf",
+		"/Users/KevinY/Development/TECDP/jqm-test5/Procfile",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/user.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/resize.js",
+		"/Users/KevinY/.bash_profile",
+		"/usr/local/var/log/mongodb/mongo.log",
+		"/Users/KevinY/Development/Web/nodepad/app.js",
+		"/Users/KevinY/Development/Web/nodepad/test.js",
+		"/Users/KevinY/Development/Web/nodepad/views/documents/index.jade",
+		"/Users/KevinY/Development/Web/nodepad/views/documents/edit.jade",
+		"/Users/KevinY/Development/Web/nodepad/views/documents/fields.jade",
+		"/Users/KevinY/Development/Web/nodepad/views/documents/new.jade",
+		"/Users/KevinY/Development/Web/nodepad/models.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/routes/globals.js",
+		"/Users/KevinY/Development/TECDP/web-ocr/routes/upload.js",
+		"/Users/KevinY/Development/TECDP/web-ocr/app.js",
+		"/Users/KevinY/Downloads/jasny-bootstrap/css/jasny-bootstrap.css",
+		"/Users/KevinY/Downloads/jasny-bootstrap/js/jasny-bootstrap.js",
+		"/Users/KevinY/Downloads/bootstrap-fileupload/bootstrap-fileupload.js",
+		"/Users/KevinY/Downloads/bootstrap-fileupload/bootstrap-fileupload.css",
+		"/Users/KevinY/Development/TECDP/jqm-test5/public/jasny-bootstrap/bootstrap-fileupload.min.css",
+		"/Users/KevinY/Downloads/bootstrap (1)/css/bootstrap.min.css",
+		"/Users/KevinY/Development/TECDP/web-ocr/views/upload.jade",
+		"/Users/KevinY/Downloads/bootstrap-fileupload/bootstrap-fileupload.min.css",
+		"/Users/KevinY/Downloads/bootstrap-fileupload/bootstrap-fileupload.min.js",
+		"/Users/KevinY/Development/TECDP/jqm-test5/public/jasny-bootstrap/bootstrap-fileupload.min.js",
+		"/Users/KevinY/Development/TECDP/web-ocr/views/layout.jade",
+		"/Users/KevinY/Development/TECDP/web-ocr/views/index.jade",
+		"/Users/KevinY/Development/TECDP/web-ocr/routes/index.js",
+		"/Users/KevinY/Development/Web/jquerymobile-test/page.html",
+		"/Users/KevinY/Development/Web/jquerymobile-test/app.css",
+		"/Users/KevinY/Development/Web/jquerymobile-test/index.html",
+		"/Users/KevinY/.ssh/config",
+		"/Users/KevinY/Development/Web/web-ocr/views/results.jade",
+		"/Users/KevinY/Development/Web/web-ocr/views/upload.jade",
+		"/Users/KevinY/Development/Web/web-ocr/app.js",
+		"/Users/KevinY/Development/Web/web-ocr/routes/index.js",
+		"/Users/KevinY/Development/Web/web-ocr/routes/upload.js",
+		"/Users/KevinY/Development/Web/web-ocr/.git/.gitignore",
+		"/Users/KevinY/Development/Web/web-ocr/routes/results.js",
+		"/Users/KevinY/Development/Web/web-ocr/routes/index.jade",
+		"/Users/KevinY/Development/Web/web-ocr/routes/globals.js",
+		"/Users/KevinY/Development/Web/exp-test/package.json",
+		"/Users/KevinY/Development/Web/fileupload/package.json",
+		"/Users/KevinY/Development/Web/web-ocr/package.json",
+		"/Users/KevinY/Development/Web/fileupload/routes/index.js",
+		"/Users/KevinY/Development/Web/fileupload/views/index.jade",
+		"/Users/KevinY/Development/Web/fileupload/app.js",
+		"/Users/KevinY/Development/Web/fileupload/views/upload.jade",
+		"/Users/KevinY/Development/Web/web-ocr/views/layout.jade",
+		"/Users/KevinY/Development/Web/web-ocr/routes/layout.jade",
+		"/Users/KevinY/Development/Web/web-ocr/public/stylesheets/bootstrap-fileupload/bootstrap-fileupload.js",
+		"/Users/KevinY/Development/Web/fileuploader/package.json",
+		"/Users/KevinY/Development/Web/express-test3/package.json",
+		"/Users/KevinY/Development/Web/fileupload/routes/uploadHelper.js",
+		"/Users/KevinY/Development/Web/express-test3/routes/index.js",
+		"/Users/KevinY/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/KevinY/Development/Web/express-test2/views/index.jade",
+		"/Users/KevinY/Development/Web/express-test3/public/stylesheets/style.styl",
+		"/Users/KevinY/Development/Web/express-test3/views/landing.jade",
+		"/Users/KevinY/Development/Web/express-test3/views/layout.jade",
+		"/Users/KevinY/Development/Web/express-test3/view/layout.jade",
+		"/Users/KevinY/Development/Web/express-test3/app.js",
+		"/Users/KevinY/Development/Web/express-test2/package.json",
+		"/Users/KevinY/Development/Web/express-test3/views/index.jade",
+		"/Users/KevinY/Development/Web/express-test3/views/index.js",
+		"/Users/KevinY/Development/TECDP/out.txt",
+		"/Users/KevinY/Development/Web/express-test2/routes/index.js",
+		"/Users/KevinY/Development/Web/express-test2/app.js",
+		"/Users/KevinY/Development/Web/express-test/app.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"controls",
+			"success",
+			"progress",
+			"        ",
+			"    \n",
+			";",
+			" = ",
+			"argv",
+			"process",
+			"lower",
+			"replace",
+			"delete",
+			"$.mobile.toggle(",
+			"$.mobile.selProfList",
+			"}')\")",
+			"cache",
+			"render('login",
+			"plus",
+			"\", ",
+			"      \n",
+			".btn",
+			"fileupload-new",
+			"fileupload",
+			"fileupload-new",
+			">\n",
+			";\n",
+			"var",
+			"parseMultipar",
+			"      ",
+			"\"*\"\n",
+			"\n  "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			",",
+			" : ",
+			"toggle(",
+			"curList",
+			".btn-bs"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"settings":
+					{
+						"buffer_size": 97,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								62,
+								62
+							]
+						],
+						"settings":
+						{
+							"auto_name": "C",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "index-style.html",
+					"settings":
+					{
+						"buffer_size": 3980,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								544,
+								544
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1047.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "mycss.css",
+					"settings":
+					{
+						"buffer_size": 498,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 93.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "mycustomscript.js",
+					"settings":
+					{
+						"buffer_size": 1558,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								462,
+								462
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "verse1test.txt",
+					"settings":
+					{
+						"buffer_size": 355,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								355,
+								224
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 151.0,
+	"status_bar_visible": true
+}
